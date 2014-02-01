@@ -1,0 +1,4 @@
+-neko bin/selfTest.n
+-cp lib
+-cp test
+--macro selftest.SelfTest.main()

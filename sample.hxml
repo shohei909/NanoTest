@@ -1,0 +1,8 @@
+--no-output
+--macro sample.TestSample.main()
+-lib nanotest
+
+--next
+--no-output
+--macro sample.FailureSample.main()
+-lib nanotest
