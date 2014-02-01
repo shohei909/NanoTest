@@ -2,10 +2,6 @@ package shohei909.nanotest;
 import haxe.CallStack;
 import haxe.macro.Context;
 import haxe.PosInfos;
-import haxe.unit.TestCase;
-import haxe.unit.TestResult;
-import haxe.unit.TestStatus;
-
 
 /**
  * ...
@@ -104,18 +100,18 @@ class NanoTestCase {
 	}
 
 	public function assertEquals<T>( expected: T , actual: T,  ?p : PosInfos ) : Void {
-		if (actual != expected){
-			fail( ASSERT_EQUALS_ERROR(expected, actual), p );
-		} else {
-			success( p );
-		}
-	}
-	
-	public function assertEnumEq<T:EnumValue>( expected: T , actual: T, ?p : PosInfos ) : Void 	{
-		if (!Type.enumEq(actual, expected)){
-			fail( ASSERT_EQUALS_ERROR(expected, actual), p );
-		} else {
-			success( p );
+		if ( Reflect.isEnumValue(expected) ){
+			if (!Type.enumEq(actual, expected)){
+				fail( ASSERT_EQUALS_ERROR(expected, actual), p );
+			} else {
+				success( p );
+			}
+		} else { 
+			if (actual != expected){
+				fail( ASSERT_EQUALS_ERROR(expected, actual), p );
+			} else {
+				success( p );
+			}
 		}
 	}
 	

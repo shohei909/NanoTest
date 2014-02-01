@@ -116,9 +116,9 @@ class SuccessTestCase extends NanoTestCase {
 	}
 	
 	public function testSuccess2() {
-		assertEnumEq( SUCCESS, TestMode.SUCCESS );
-		assertEnumEq( NODE( LEAF("hoge"), LEAF(1) ), NODE( LEAF("hoge"), LEAF(1.0) ) );
-		assertEnumEq( LEAF(this), LEAF(this) );
+		assertEquals( SUCCESS, TestMode.SUCCESS );
+		assertEquals( NODE( LEAF("hoge"), LEAF(1) ), NODE( LEAF("hoge"), LEAF(1.0) ) );
+		assertEquals( LEAF(this), LEAF(this) );
 		assertEquals( setupCount, tearDownCount + 1 );
 		assertEquals( globalSetupCount, 1 );
 		assertEquals( globalTearDownCount, 0 );
@@ -178,7 +178,7 @@ class FailureTestCase extends NanoTestCase {
 		assertEquals( obj1, obj2 );
 		
 		parent.expectFail( NanoTestCase.ASSERT_EQUALS_ERROR( LEAF(obj1), LEAF(obj2) ) );
-		assertEnumEq( LEAF(obj1), LEAF(obj2) );
+		assertEquals( LEAF(obj1), LEAF(obj2) );
 	}
 }
 
