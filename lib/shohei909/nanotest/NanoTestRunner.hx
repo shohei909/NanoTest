@@ -105,17 +105,17 @@ class NanoTestRunner {
 	
 	static public function error( message:String, position:PosInfos ) {
 		#if macro
-		return Context.error( message, posInfosToPosition(position) );
+		Context.error( message, posInfosToPosition(position) );
 		#else 
-		return Log.trace( message, position );
+		TestRunner.print(position.fileName+":"+position.lineNumber+": "+Std.string(message)+"\n");
 		#end
 	}
 	
 	static public function warning( message:String, position:PosInfos ) {
 		#if macro
-		return Context.warning( message, posInfosToPosition(position) );
+		Context.warning( message, posInfosToPosition(position) );
 		#else 
-		return Log.trace( message, position );
+		TestRunner.print(position.fileName+":"+position.lineNumber+": "+Std.string(message)+"\n");
 		#end
 	}
 	

@@ -46,7 +46,7 @@ class NanoTestCase {
 		
 		globalSetup();
 		for ( fname in fields ){
-			var field = Reflect.field(this, fname);
+			var field:Dynamic = Reflect.field(this, fname);
 			if ( StringTools.startsWith(fname,"test") && Reflect.isFunction(field) ){
 				setup();
 				
@@ -60,7 +60,7 @@ class NanoTestCase {
 				}
 				
 				try {
-					field();
+					Reflect.callMethod(this, field, []);
 				}catch ( e : Dynamic ) {
 					error( e );
 				}
@@ -145,7 +145,9 @@ class NanoTestCase {
 		currentResult.error = true;
 		
 		#if js
-		var message = e +" ["+e.message+"]";
+		if( e.message != null ){
+			var message = e +" [" + e.message + "]";
+		}
 		#else
 		var message = Std.string( e );
 		#end
