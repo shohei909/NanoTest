@@ -11,14 +11,19 @@ import haxe.io.Bytes;
 #end
 
 class NanoTestRunner {
-	public var cases(default,null):Array<NanoTestCase>;
+	public var cases(default, null):Array<NanoTestCase>;
+	
+	#if php 
+	public function hprint( d ) { TestRunner.print( d ); }
+	#end
+	
 	public var print:Dynamic->Void;
 	public var printError:String->PosInfos->Void;
 	
 	public function new( ?printError:String->PosInfos->Void ) {
 		cases = [];
 		
-		this.print = TestRunner.print;
+		print = TestRunner.print;
 		
 		if ( printError == null ) {
 			this.printError = NanoTestRunner.warning;
@@ -34,7 +39,7 @@ class NanoTestRunner {
 	public function run() : Bool {
 		var results = [];
 		for ( c in cases ) {
-			var rs = c.run( print );
+			var rs = c.run( this.print );
 			for ( r in rs ) {
 				results.push( r );
 			}
@@ -43,7 +48,7 @@ class NanoTestRunner {
 		var failures = 0;
 		for ( result in results ){
 			if (result.failed){
-				print("* " + result.className + "::" + result.method + "()\n");
+				this.print("* " + result.className + "::" + result.method + "()\n");
 				
 				for ( status in result.status ) {
 					switch(status) {

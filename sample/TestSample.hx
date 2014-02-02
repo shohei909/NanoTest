@@ -5,12 +5,12 @@ import shohei909.nanotest.NanoTestCase;
 class TestSample {   
     static function main(){
         var r = new NanoTestRunner();
-        r.add(new SampleCase());
+        r.add(new TestSampleCase());
         r.run();
     }
 }
  
-class SampleCase extends NanoTestCase {
+class TestSampleCase extends NanoTestCase {
     public function testBasic(){
         assertEquals( "A", "A" );
     }   

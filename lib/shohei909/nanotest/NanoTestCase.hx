@@ -38,50 +38,61 @@ class NanoTestCase {
 	
 	public function run( print:Dynamic->Void ) {
 		var results = [];
-		
 		var cl = Type.getClass(this);
 		var fields = Type.getInstanceFields(cl);
+		
+		function closeResult() {
+			if (currentResult.error) {
+				print( "E" );
+			} else if (currentResult.failed) {
+				print( "F" );
+			} else {
+				print( "." );
+			}
+			results.push( currentResult );
+			currentResult = null;
+		}
 		
 		print( "Class: " + Type.getClassName(cl) + " ");
 		
 		globalSetup();
+		if ( currentResult != null ) {
+			closeResult();
+		}
+		
 		for ( fname in fields ){
 			var field:Dynamic = Reflect.field(this, fname);
 			if ( StringTools.startsWith(fname,"test") && Reflect.isFunction(field) ){
-				setup();
-				
 				currentResult = {
 					className : Type.getClassName(cl),
 					method : fname,
+					async : false,
 					testCase : this,
 					error : false,
 					failed : false,
 					status : [],
 				}
 				
+				setup();
+				
 				try {
 					Reflect.callMethod(this, field, []);
 				}catch ( e : Dynamic ) {
 					error( e );
 				}
-				
-				if (currentResult.error) {
-					print( "E" );
-				} else if (currentResult.failed) {
-					print( "F" );
-				} else {
-					print( "." );
-				}
-				
-				results.push( currentResult );
 				tearDown();
+				closeResult();
 			}
 		}
+		
 		globalTearDown();
+		
 		print( "\n" );
 		return results;
 	}
 	
+	function _closeCurrentResult( print:Dynamic->Void ) {
+	}
 	
 	public function assertTrue( b:Bool, ?p : PosInfos ) : Void {
 		if (b == false) {
@@ -132,26 +143,43 @@ class NanoTestCase {
 	}
 	
 	public function fail( message:String, ?p:PosInfos ) : Void {
+		if ( currentResult == null ) _openPreprocessResult();
 		currentResult.failed = true;
 		currentResult.status.push( NanoTestStatus.FAIL( message, p ) );
 	}
 	
 	public function success( ?p:PosInfos ) : Void {
+		if ( currentResult == null ) _openPreprocessResult();
 		currentResult.status.push( NanoTestStatus.SUCCESS( p ) );
 	}
 	
 	public function error( e:Dynamic ) {
+		if ( currentResult == null ) _openPreprocessResult();
 		currentResult.failed = true;
 		currentResult.error = true;
 		
 		#if js
-		if( e.message != null ){
-			var message = e +" [" + e.message + "]";
-		}
+		var message = 
+			if( e.message != null )
+				e +" [" + e.message + "]"
+			else 
+				Std.string( e );
 		#else
 		var message = Std.string( e );
 		#end
 		
 		currentResult.status.push( NanoTestStatus.ERROR( message, CallStack.exceptionStack() ) );
+	}
+	
+	function _openPreprocessResult() {
+		currentResult = {
+			className : Type.getClassName(Type.getClass(this)),
+			method : null,
+			async : true,
+			testCase : this,
+			error : false,
+			failed : false,
+			status : [],
+		}
 	}
 }

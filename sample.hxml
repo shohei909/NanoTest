@@ -1,8 +1,20 @@
 --no-output
+-cp test
+--macro selftest.SelfTest.main()
+-cp lib
+
+--no-output
 --macro sample.TestSample.main()
--lib nanotest
+-cp lib
 
 --next
 --no-output
 --macro sample.FailureSample.main()
--lib nanotest
+-cp lib
+
+--next
+-swf bin/asyncTest.swf
+-main sample.AsyncTestSample
+--macro sample.AsyncTestSample.main()
+-debug
+-cp lib

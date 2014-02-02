@@ -1,4 +1,46 @@
--neko bin/selfTest.n
+--no-output
+--macro selftest.SelfTest.main()
 -cp lib
 -cp test
---macro selftest.SelfTest.main()
+
+--next
+-swf bin/selfTest.swf
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-neko bin/selfTest.n
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-js bin/selfTest.js
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-java bin/java
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-cs bin/cs
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-php bin/php
+-main selftest.SelfTest
+-cp lib
+-cp test
+
+--next
+-cpp bin/cpp
+-main selftest.SelfTest
+-cp lib
+-cp test

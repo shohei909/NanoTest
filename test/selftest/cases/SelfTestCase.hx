@@ -102,6 +102,9 @@ class SuccessTestCase extends NanoTestCase {
 		tearDownCount = 0;
 		globalSetupCount = 0;
 		globalTearDownCount = 0;
+		
+		assertTrue( true );
+		assertFalse( false );
 	}
 	
 	public function testSuccess() {
@@ -163,6 +166,12 @@ class FailureTestCase extends NanoTestCase {
 	public function new( parent ) {
 		this.parent = parent;
 		super();
+		
+		parent.expectFail( NanoTestCase.ASSERT_FALSE_ERROR );
+		assertFalse( true );
+		
+		parent.expectFail( NanoTestCase.ASSERT_TRUE_ERROR );
+		assertTrue( false );
 	}
 	
 	public function testFailure() {
