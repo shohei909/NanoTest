@@ -79,7 +79,11 @@ class NanoTestRunner {
 										}
 									case Method(cname,meth):
 										print(c + " : " + cname +  "." + meth);
+									#if (haxe_ver >= 3.01)
+									case LocalFunction(n):
+									#else
 									case Lambda(n):
+									#end
 										print(c + " : local function #" + n);
 								}
 							}
