@@ -91,9 +91,6 @@ class NanoTestCase {
 		return results;
 	}
 	
-	function _closeCurrentResult( print:Dynamic->Void ) {
-	}
-	
 	public function assertTrue( b:Bool, ?p : PosInfos ) : Void {
 		if (b == false) {
 			fail( ASSERT_TRUE_ERROR, p );
