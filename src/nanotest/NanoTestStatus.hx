@@ -1,4 +1,4 @@
-package shohei909.nanotest;
+package nanotest;
 import haxe.CallStack.StackItem;
 import haxe.PosInfos;
 

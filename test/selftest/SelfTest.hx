@@ -1,7 +1,7 @@
 package selftest;
 
 import selftest.cases.SelfTestCase;
-import shohei909.nanotest.NanoTestRunner;
+import nanotest.NanoTestRunner;
 
 /**
  * ...

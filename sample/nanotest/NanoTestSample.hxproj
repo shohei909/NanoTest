@@ -4,51 +4,53 @@
   <output>
     <movie outputType="CustomBuild" />
     <movie input="" />
-    <movie path="bin\NanoTest.n" />
-    <movie fps="0" />
-    <movie width="0" />
-    <movie height="0" />
-    <movie version="1" />
+    <movie path="" />
+    <movie fps="30" />
+    <movie width="800" />
+    <movie height="600" />
+    <movie version="9" />
     <movie minorVersion="0" />
-    <movie platform="Neko" />
+    <movie platform="Flash Player" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="test" />
-    <class path="lib" />
-    <class path="src" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="Main" />
+    <option mainClass="" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <library name="" />
+    <library name="nanotest" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="test\Main.hx" />
+    <!-- example: <compile path="..." /> -->
   </compileTargets>
+  <!-- Assets to embed into the output SWF -->
+  <library>
+    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
+  </library>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\selfTest.hxml</preBuildCommand>
+  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\compile.hxml</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
   <options>
-    <option showHiddenPaths="True" />
+    <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="echo done" />
+    <option testMovieCommand="echo &quot;ok&quot;" />
   </options>
   <!-- Plugin storage -->
   <storage />

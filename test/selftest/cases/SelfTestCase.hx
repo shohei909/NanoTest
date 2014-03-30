@@ -2,9 +2,9 @@ package selftest.cases;
 import haxe.PosInfos;
 import selftest.cases.SelfTestCase.FailureTestCase;
 import selftest.cases.SelfTestCase.TestMode;
-import shohei909.nanotest.NanoTestCase;
-import shohei909.nanotest.NanoTestRunner;
-import shohei909.nanotest.NanoTestStatus;
+import nanotest.NanoTestCase;
+import nanotest.NanoTestRunner;
+import nanotest.NanoTestStatus;
 
 /**
  * ...
@@ -23,8 +23,8 @@ class SelfTestCase extends NanoTestCase{
 		runner.print = dummyPrint;
 		runner.add( successCase );
 		assertTrue( runner.run() );
-		assertEquals( 3, successCase.setupCount );
-		assertEquals( 3, successCase.tearDownCount );
+		assertEquals( 4, successCase.setupCount );
+		assertEquals( 4, successCase.tearDownCount );
 		assertEquals( 1, successCase.globalSetupCount );
 		assertEquals( 1, successCase.globalTearDownCount );
 		
@@ -116,6 +116,7 @@ class SuccessTestCase extends NanoTestCase {
 		assertEquals( setupCount, tearDownCount + 1 );
 		assertEquals( globalSetupCount, 1 );
 		assertEquals( globalTearDownCount, 0 );
+		assertEquals( LEAF(0.1), LEAF(0.1) );
 	}
 	
 	public function testSuccess2() {
@@ -133,6 +134,14 @@ class SuccessTestCase extends NanoTestCase {
 		assertEquals( setupCount, tearDownCount + 1 );
 		assertEquals( globalSetupCount, 1 );
 		assertEquals( globalTearDownCount, 0 );
+	}
+	
+	public function testSuccess4() {
+		assertEquals( 1.0, 1 );
+		
+		var obj1 = {}, obj2 = {};
+		assertNotEquals( LEAF(obj1), LEAF(obj2) );
+		assertEquals( LEAF(obj1), LEAF(obj1) );
 	}
 	
 	public function throwError() {
@@ -188,6 +197,9 @@ class FailureTestCase extends NanoTestCase {
 		
 		parent.expectFail( NanoTestCase.ASSERT_EQUALS_ERROR( LEAF(obj1), LEAF(obj2) ) );
 		assertEquals( LEAF(obj1), LEAF(obj2) );
+		
+		parent.expectFail( NanoTestCase.ASSERT_NOT_EQUALS_ERROR( 0, 0 ) );
+		assertNotEquals( 0, 0 );
 	}
 }
 

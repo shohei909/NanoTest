@@ -1,4 +1,4 @@
-package shohei909.nanotest;
+package nanotest;
 
 typedef NanoTestResult = {
 	className : String, 

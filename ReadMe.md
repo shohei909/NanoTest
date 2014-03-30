@@ -1,14 +1,15 @@
 NanoTest is a light weight test library. Its interface is similar to the [haxe.unit](http://haxe.org/doc/cross/unit) testing framework, but it can run as pre-compilation macro and can output test failures as compiler warnings or errors.
 
 #NanoTest with FlashDevelop
-![NanoTest](sample/screenshot/NanoTestOnFlashDevelop.png)
+![NanoTest](sample/nanotest/screenshot/NanoTestOnFlashDevelop.png)
 
 
 NanoTest can display test failures as compiler warnings on the Result Panel of [FlashDevelop](http://www.flashdevelop.org/) and other IDEs.
 
 #Installing NanoTest
 
-You can install NanoTest from haxelib.  
+You can install NanoTest from haxelib.
+
 ```
 haxelib install nanotest
 ```
@@ -16,23 +17,24 @@ haxelib install nanotest
 #Running test as macro
 
 Create test classes and save them as sample/TestSample.hx.
+
 ```hx
 package sample;
-import shohei909.nanotest.NanoTestRunner;
-import shohei909.nanotest.NanoTestCase;
- 
-class TestSample {   
+import nanotest.NanoTestRunner;
+import nanotest.NanoTestCase;
+
+class TestSample {
     static function main(){
         var r = new NanoTestRunner();
         r.add(new SampleCase());
         r.run();
     }
 }
- 
+
 class SampleCase extends NanoTestCase {
     public function testBasic(){
         assertEquals( "A", "A" );
-    }   
+    }
 }
 ```
 
@@ -65,7 +67,9 @@ NanoTestCase has some addtional functions,
 
 <dl>
 <dt>assertThrows(func:Void->Void, ?isSuccess:Dynamic->Bool, ?p:PosInfos)</dt>
-<dd>assert a test exepect func to throw exception. If isSuccess function is set, the thrown exception is tested by the isSuccess function.</dd>
+<dd>assert a function expected to throw exception. If isSuccess function is set, the thrown exception is tested by the isSuccess function.</dd>
+<dt>assertNotEquals<T>(expected:T, ?actual:T, ?p:PosInfos)</dt>
+<dd>assert values which do not equals</dd>
 <dt>globalSetup()</dt>
 <dd>setup which is run once per class of tests</dd>
 <dt>globalTearDown()</dt>
@@ -79,6 +83,9 @@ NanoTestCase has some addtional functions,
 <dl>
 
 and the **assertEquals** function supports EnumValue.
+
+#History
+
 
 #License
 

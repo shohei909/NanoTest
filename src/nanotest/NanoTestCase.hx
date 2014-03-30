@@ -1,4 +1,4 @@
-package shohei909.nanotest;
+package nanotest;
 import haxe.CallStack;
 import haxe.macro.Context;
 import haxe.PosInfos;
@@ -17,12 +17,11 @@ class NanoTestCase {
 	static inline function ASSERT_EQUALS_ERROR( expected:Dynamic, actual:Dynamic ) {
 		return 'expected ${format(expected)} but was ${format(actual)}';
 	}
+	static inline function ASSERT_NOT_EQUALS_ERROR( expected:Dynamic, actual:Dynamic ) {
+		return 'expected not ${format(expected)} but was ${format(actual)}';
+	}
 	static function format( d:Dynamic ) {
-		return 
-			if ( Std.is( d, String ) ) 
-				'"$d"'
-			else 
-				'$d';
+		return if ( Std.is( d, String ) ) '"$d"' else '$d';
 	}
 	
 	var currentResult:NanoTestResult;
@@ -117,6 +116,22 @@ class NanoTestCase {
 		} else { 
 			if (actual != expected){
 				fail( ASSERT_EQUALS_ERROR(expected, actual), p );
+			} else {
+				success( p );
+			}
+		}
+	}
+	
+	public function assertNotEquals<T>( notExpected: T , actual: T,  ?p : PosInfos ) : Void {
+		if ( Reflect.isEnumValue(notExpected) ){
+			if (Type.enumEq(actual, notExpected)){
+				fail( ASSERT_NOT_EQUALS_ERROR(notExpected, actual), p );
+			} else {
+				success( p );
+			}
+		} else { 
+			if (actual == notExpected){
+				fail( ASSERT_NOT_EQUALS_ERROR(notExpected, actual), p );
 			} else {
 				success( p );
 			}

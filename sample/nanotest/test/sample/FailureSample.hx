@@ -1,7 +1,7 @@
 package sample;
-import sample.FailureSample.FailureCase;
-import shohei909.nanotest.NanoTestRunner;
-import shohei909.nanotest.NanoTestCase;
+
+import nanotest.NanoTestRunner;
+import nanotest.NanoTestCase;
 
 class FailureSample{
 	static public function main() {
@@ -16,5 +16,6 @@ class FailureCase extends NanoTestCase {
 		assertEquals( "AB", "A" + "B");
 		assertEquals( 3, 1 + 1 );
 		assertEquals( 5, 2 + 2 );
+		throw "error test";
 	}
 }

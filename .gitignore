@@ -1,2 +1,4 @@
 bin/
+report/
 *.zip
+*.hxproj.bat
