@@ -13,9 +13,16 @@ class FailureSample{
 
 class FailureCase extends NanoTestCase {
 	public function testBasic() {
-		assertEquals( "AB", "A" + "B");
-		assertEquals( 3, 1 + 1 );
-		assertEquals( 5, 2 + 2 );
+		assertEquals("AB", "A" + "B");
+		assertEquals(3, 1 + 1);
+		assertEquals(5, 2 + 2);
+		
+		var a = [1, 2, 3, 5];
+		var b = [2, 2, 3, 3];
+		for (i in 0...a.length) {
+			assertNotEquals(a[i], b[i]).label(i);
+		}
+		
 		throw "error test";
 	}
 }

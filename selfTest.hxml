@@ -11,6 +11,7 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/neko.txt', ['test', 'src'], 'Neko')
 
 
@@ -27,6 +28,7 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/js.txt', ['test', 'src'], 'JavaScript')
 
 
@@ -43,6 +45,7 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/cs.txt', ['test', 'src'], 'C#')
 
 
@@ -58,6 +61,7 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/java.txt', ['test', 'src'], 'Java')
 
 
@@ -74,6 +78,7 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/cpp.txt', ['test', 'src'], 'C++')
 
 
@@ -91,4 +96,6 @@
 
 --next
 -cp src
+-D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/swf.txt', ['test', 'src'], 'Flash')
+

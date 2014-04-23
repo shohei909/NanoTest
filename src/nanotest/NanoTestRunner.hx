@@ -6,9 +6,9 @@ import haxe.unit.TestRunner;
 
 #if macro
 import haxe.macro.Context;
+import haxe.io.Bytes;
 import sys.io.File;
 import sys.FileSystem;
-import haxe.io.Bytes;
 #end
 
 class NanoTestRunner {
@@ -26,10 +26,14 @@ class NanoTestRunner {
 		{ //NanoTest
 			ereg 	: ~/^([^*?"<>|]+)[:]([1-9][0-9]*)[:] ((exception thrown |Test failed |Called from).*)/, 
 			pos 	: [1, 2, 3],
-		}, 
-		{ //NanoTest flash
-			ereg 	: ~/^NanoTestRunner\.hx[:]([1-9][0-9]*)[:] ([^*?"<>|]+)[:]([1-9][0-9]*)[:] ((exception thrown |Test failed |Called from).*)/, 
-			pos 	: [2, 3, 4],
+			getFile : function (str:String, ereg) {
+				if (str.substr(str.length - 3) == ".hx") return str;
+				var segs = str.split("::");
+				if (segs.length == 1) return str;
+				var str = segs[0];
+				var segs = str.split(".");
+				return segs.join("/") + ".hx";
+			}
 		}, 
 		{ //MUnit
 			ereg 	: ~/^\s*[A-Z]+[:] massive\.munit\.[a-zA-Z]*Exception[:] (.+) at ([^*?"<>|]+) [(]([1-9][0-9]*)[)]/, 
@@ -45,7 +49,7 @@ class NanoTestRunner {
 	
 	static public function readResult(file:String, sourceDir:Array<String>, ?label:String) {
 		Sys.println( "" );
-		Sys.println( '== read $label result ==' );
+		Sys.println( if (label != null) '== $label Result ==' else '== Result ==' );
 		
 		var r = File.read(file);
 		var segs = ~/([\r][\n]|[\n]|[\r])/g.split(r.readAll().toString());
@@ -82,9 +86,10 @@ class NanoTestRunner {
 				}
 			}
 		}
+		
+		
+		if (Context.defined("result_exit_code") && fail) Sys.exit(1);
 	}
-	
-	
 	#end
 	
 	public var cases(default, null):Array<NanoTestCase>;
@@ -93,13 +98,22 @@ class NanoTestRunner {
 	public function hprint( d ) { TestRunner.print( d ); }
 	#end
 	
-	public var print:Dynamic->Void;
 	public var printError:String->PosInfos->Void;
+	
+	#if flash
+	static var traceData:String = "";
+	public dynamic function print(d:Dynamic) { 
+		traceData += Std.string(d);
+		TestRunner.print(d); 
+	}
+	#else
+	public dynamic function print(d:Dynamic) { 
+		TestRunner.print(d); 
+	}
+	#end
 	
 	public function new( ?printError:String->PosInfos->Void ) {
 		cases = [];
-		
-		print = TestRunner.print;
 		
 		if ( printError == null ) {
 			this.printError = NanoTestRunner.warning;
@@ -113,9 +127,14 @@ class NanoTestRunner {
 	}
 	
 	public function run() : Bool {
+		#if flash
+		var oldTrace = traceData;
+		traceData = "";
+		#end
+		
 		var results = [];
 		for ( c in cases ) {
-			var rs = c.run( this.print );
+			var rs = c.run( print );
 			for ( r in rs ) {
 				results.push( r );
 			}
@@ -124,7 +143,7 @@ class NanoTestRunner {
 		var failures = 0;
 		for ( result in results ){
 			if (result.failed){
-				this.print("* " + result.className + "::" + result.method + "()\n");
+				print("* " + result.className + "::" + result.method + "()\n");
 				
 				for ( status in result.status ) {
 					switch(status) {
@@ -185,6 +204,11 @@ class NanoTestRunner {
 		
 		print(results.length + " tests, " + failures + " failed, " + (results.length - failures) + " success\n");
 		
+		#if flash
+		if (traceData != "") trace("NanoTest Reslut Output\n" + traceData);
+		traceData = oldTrace;
+		#end
+		
 		return (failures == 0);
 	}
 	
@@ -192,22 +216,21 @@ class NanoTestRunner {
 		#if macro
 		Context.error( message, posInfosToPosition(position) );
 		#elseif flash
-		Log.trace(message, position);
 		TestRunner.print(fileFromPosInfos(position)+":"+position.lineNumber+": "+message+"\n");
-		#else 
-		TestRunner.print(fileFromPosInfos(position)+":"+position.lineNumber+": "+message+"\n");
+		#end
+		#if flash
+		traceData += Std.string(fileFromPosInfos(position)+":"+position.lineNumber+": "+message+"\n");
 		#end
 	}
 	
 	static public function warning( message:String, position:PosInfos ) {
 		#if macro
 		Context.warning(message, posInfosToPosition(position));
-		#elseif flash
-		var str = fileFromPosInfos(position) + ":" + position.lineNumber + ": " + Std.string(message);
-		trace(str);
-		TestRunner.print(str + "\n");
-		#else 
-		TestRunner.print(fileFromPosInfos(position)+":"+position.lineNumber+": "+Std.string(message)+"\n");
+		#else
+		TestRunner.print(fileFromPosInfos(position)+":"+position.lineNumber+": "+message+"\n");
+		#end
+		#if flash
+		traceData += Std.string(fileFromPosInfos(position)+":"+position.lineNumber+": "+message+"\n");
 		#end
 	}
 	
