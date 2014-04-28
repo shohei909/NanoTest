@@ -1,4 +1,4 @@
-NanoTest is a light weight test library. Its interface is similar to the [haxe.unit](http://haxe.org/doc/cross/unit) testing framework, but it can run as pre-compilation macro and can output test failures as compiler warnings or errors.
+NanoTest is a light weight test library. Its interface is similar to the [haxe.unit](http://haxe.org/doc/cross/unit) testing framework, but it can output test failures as compiler warnings or errors.
 
 #NanoTest with FlashDevelop
 ![NanoTest](sample/nanotest/resource/NanoTestOnFlashDevelop.png)
