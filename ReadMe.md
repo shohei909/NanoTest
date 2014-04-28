@@ -1,10 +1,10 @@
 NanoTest is a light weight test library. Its interface is similar to the [haxe.unit](http://haxe.org/doc/cross/unit) testing framework, but it can run as pre-compilation macro and can output test failures as compiler warnings or errors.
 
 #NanoTest with FlashDevelop
-![NanoTest](sample/nanotest/screenshot/NanoTestOnFlashDevelop.png)
+![NanoTest](sample/nanotest/resource/NanoTestOnFlashDevelop.png)
 
 #NanoTest with Intellij IDEA
-![NanoTest](sample/nanotest/screenshot/NanoTestOnIntelliJIdea.png)
+![NanoTest](sample/nanotest/resource/NanoTestOnIntelliJIdea.png)
 
 NanoTest can display test failures as compiler warnings on the Result Panel of [FlashDevelop](http://www.flashdevelop.org/) and other IDEs.
 
