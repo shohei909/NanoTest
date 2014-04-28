@@ -3,6 +3,8 @@ NanoTest is a light weight test library. Its interface is similar to the [haxe.u
 #NanoTest with FlashDevelop
 ![NanoTest](sample/nanotest/screenshot/NanoTestOnFlashDevelop.png)
 
+#NanoTest with Intellij IDEA
+![NanoTest](sample/nanotest/screenshot/NanoTestOnIntelliJIdea.png)
 
 NanoTest can display test failures as compiler warnings on the Result Panel of [FlashDevelop](http://www.flashdevelop.org/) and other IDEs.
 
@@ -41,9 +43,19 @@ class SampleCase extends NanoTestCase {
 Create compile.hxml with the content:
 
 ```
---no-output
---macro sample.TestSample.main()
+--next
+-neko report/test.n
+-main sample.FailureSample
 -lib nanotest
+-cp sample
+-debug
+
+--next
+-cmd neko "report/test.n" 1>report/neko.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('report/neko.txt', ['sample'], 'Neko')
 ```
 
 Compile it on commandline
@@ -51,8 +63,6 @@ Compile it on commandline
 ```
 haxe compile.hxml
 ```
-
-The test function run as macro, and the result will be success.
 
 #Output test failures as compilation errors
 
@@ -68,7 +78,7 @@ NanoTestCase has some addtional functions,
 <dl>
 <dt>assertThrows(func:Void->Void, ?isSuccess:Dynamic->Bool, ?p:PosInfos)</dt>
 <dd>assert a function expected to throw exception. If isSuccess function is set, the thrown exception is tested by the isSuccess function.</dd>
-<dt>assertNotEquals<T>(expected:T, ?actual:T, ?p:PosInfos)</dt>
+<dt>assertNotEquals(expected:T, ?actual:T, ?p:PosInfos)</dt>
 <dd>assert values which do not equals</dd>
 <dt>globalSetup()</dt>
 <dd>setup which is run once per class of tests</dd>
@@ -84,8 +94,29 @@ NanoTestCase has some addtional functions,
 
 and the **assertEquals** function supports EnumValue.
 
-#History
+## Use label
 
+The label function can be used for subtending failures in same line.
+
+
+```hx
+class SampleCase extends NanoTestCase {
+    public function testBasic() {
+        var a = [1, 2, 3, 5];
+        var b = [2, 2, 3, 3];
+        for (i in 0...a.length) {
+            assertEquals(a[i], b[i]).label(i);
+        }
+    }
+}
+```
+
+This result is below.
+
+```
+Test failed : expected 1 but was 2 [0]
+Test failed : expected 5 but was 3 [3]
+```
 
 #License
 
