@@ -12,9 +12,7 @@
 
 --next
 -lib nanotest
--D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/js.txt', ['test', 'src'], 'JavaScript')
-
 
 #neko
 --next
