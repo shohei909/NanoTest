@@ -1,4 +1,4 @@
-package src\sample\nanotest\sample;
+package sample;
 import nanotest.NanoTestRunner;
 import nanotest.NanoTestCase;
  

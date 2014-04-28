@@ -1,4 +1,4 @@
-package src\sample\nanotest\sample;
+package sample;
 
 import haxe.Timer;
 import haxe.unit.TestCase;
