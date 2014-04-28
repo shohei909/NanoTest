@@ -1,0 +1,100 @@
+#js
+--next
+-js bin/test.js
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+
+--next
+-cmd node "bin/test.js" 1>bin/report/js.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/js.txt', ['test', 'src'], 'JavaScript')
+
+#neko
+--next
+-neko bin/test.n
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+
+--next
+-cmd neko "bin/test.n" 1>bin/report/neko.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/neko.txt', ['test', 'src'], 'Neko')
+
+
+#c-sharp
+--next
+-cs bin/cs
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+
+--next
+-cmd ""bin/cs/bin/FailureSample-Debug"" 1>bin/report/cs.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/cs.txt', ['test', 'src'], 'C#')
+
+
+#java 
+--next
+-java bin/java
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+
+--next
+-cmd java -jar bin/java/FailureSample-Debug.jar 1>bin/report/java.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/java.txt', ['test', 'src'], 'Java')
+
+
+#cpp
+--next
+-cpp bin/cpp
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+
+--next
+-cmd ""bin/cpp/FailureSample-Debug"" 1>bin/report/cpp.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/cpp.txt', ['test', 'src'], 'C++')
+
+
+#swf
+--next
+-swf bin/test.swf
+-main sample.FailureSample
+-lib nanotest
+-cp src
+-cp test
+-debug
+-D fdb
+
+--next
+-cmd swf_debug bin/test.swf bin/report/swf.txt
+
+--next
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/report/swf.txt', ['test', 'src'], 'Flash')

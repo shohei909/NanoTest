@@ -1,4 +1,4 @@
-package shohei909.nanotest;
+package nanotest;
 import haxe.CallStack;
 import haxe.macro.Context;
 import haxe.PosInfos;
@@ -17,12 +17,11 @@ class NanoTestCase {
 	static inline function ASSERT_EQUALS_ERROR( expected:Dynamic, actual:Dynamic ) {
 		return 'expected ${format(expected)} but was ${format(actual)}';
 	}
+	static inline function ASSERT_NOT_EQUALS_ERROR( expected:Dynamic, actual:Dynamic ) {
+		return 'expected not ${format(expected)} but was ${format(actual)}';
+	}
 	static function format( d:Dynamic ) {
-		return 
-			if ( Std.is( d, String ) ) 
-				'"$d"'
-			else 
-				'$d';
+		return if ( Std.is( d, String ) ) '"$d"' else '$d';
 	}
 	
 	var currentResult:NanoTestResult;
@@ -91,24 +90,24 @@ class NanoTestCase {
 		return results;
 	}
 	
-	public function assertTrue( b:Bool, ?p : PosInfos ) : Void {
-		if (b == false) {
+	public function assertTrue( b:Bool, ?p : PosInfos ) {
+		return if (b == false) {
 			fail( ASSERT_TRUE_ERROR, p );
 		} else {
 			success( p );
 		}
 	}
 
-	public function assertFalse( b:Bool, ?p : PosInfos ) : Void {
-		if (b == true){
+	public function assertFalse( b:Bool, ?p : PosInfos ) {
+		return if (b == true){
 			fail( ASSERT_FALSE_ERROR, p );
 		} else {
 			success( p );
 		}
 	}
 
-	public function assertEquals<T>( expected: T , actual: T,  ?p : PosInfos ) : Void {
-		if ( Reflect.isEnumValue(expected) ){
+	public function assertEquals<T>( expected: T , actual: T,  ?p : PosInfos ) {
+		return if ( Reflect.isEnumValue(expected) ){
 			if (!Type.enumEq(actual, expected)){
 				fail( ASSERT_EQUALS_ERROR(expected, actual), p );
 			} else {
@@ -123,31 +122,55 @@ class NanoTestCase {
 		}
 	}
 	
-	public function assertThrows ( func:Void->Void, ?isSuccess:Dynamic->Bool, ?p : PosInfos ){
+	public function assertNotEquals<T>( notExpected: T , actual: T,  ?p : PosInfos ) {
+		return if ( Reflect.isEnumValue(notExpected) ){
+			if (Type.enumEq(actual, notExpected)){
+				fail( ASSERT_NOT_EQUALS_ERROR(notExpected, actual), p );
+			} else {
+				success( p );
+			}
+		} else { 
+			if (actual == notExpected){
+				fail( ASSERT_NOT_EQUALS_ERROR(notExpected, actual), p );
+			} else {
+				success( p );
+			}
+		}
+	}
+	
+	public function assertThrows ( func:Void->Void, ?isSuccess:Dynamic->Bool, ?p : PosInfos ) {
 		try {
 			func();
 		} catch ( d:Dynamic ) {
 			if ( isSuccess == null || isSuccess( d ) ) {
-				success( p );
+				return success( p );
 			} else {
-				fail( ASSERT_THROWS_ILLEGAL_EXCEPTION( d ), p );
+				var f = fail( ASSERT_THROWS_ILLEGAL_EXCEPTION( d ), p );
 				error( d );
+				return f;
 			}
-			return;
 		}
 		
-		fail( ASSERT_THROWS_ERROR, p );
+		return fail( ASSERT_THROWS_ERROR, p );
 	}
 	
-	public function fail( message:String, ?p:PosInfos ) : Void {
+	public function fail( message:String, ?p:PosInfos ) {
 		if ( currentResult == null ) _openPreprocessResult();
 		currentResult.failed = true;
-		currentResult.status.push( NanoTestStatus.FAIL( message, p ) );
+		
+		var i = currentResult.status.length;
+		var status = NanoTestStatus.FAIL( message, p );
+		currentResult.status.push( status );
+		return new NanoTestAssertResult(currentResult, i);
 	}
 	
-	public function success( ?p:PosInfos ) : Void {
+	public function success( ?p:PosInfos ) {
 		if ( currentResult == null ) _openPreprocessResult();
-		currentResult.status.push( NanoTestStatus.SUCCESS( p ) );
+		
+		var i = currentResult.status.length;
+		var status = NanoTestStatus.SUCCESS( p );
+		currentResult.status.push( status );
+		return new NanoTestAssertResult(currentResult, i);
 	}
 	
 	public function error( e:Dynamic ) {
@@ -165,7 +188,10 @@ class NanoTestCase {
 		var message = Std.string( e );
 		#end
 		
-		currentResult.status.push( NanoTestStatus.ERROR( message, CallStack.exceptionStack() ) );
+		var i = currentResult.status.length;
+		var status = NanoTestStatus.ERROR( message, CallStack.exceptionStack() );
+		currentResult.status.push( status );
+		return new NanoTestAssertResult(currentResult, i);
 	}
 	
 	function _openPreprocessResult() {
@@ -177,6 +203,6 @@ class NanoTestCase {
 			error : false,
 			failed : false,
 			status : [],
-		}
+		} 
 	}
 }

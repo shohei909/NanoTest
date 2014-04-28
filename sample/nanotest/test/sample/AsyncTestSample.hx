@@ -1,9 +1,10 @@
 package sample;
+
 import haxe.Timer;
 import haxe.unit.TestCase;
 import haxe.unit.TestRunner;
-import shohei909.nanotest.NanoTestRunner;
-import shohei909.nanotest.NanoTestCase;
+import nanotest.NanoTestRunner;
+import nanotest.NanoTestCase;
  
 class AsyncTestSample {
 	static var finishCount = 0; 

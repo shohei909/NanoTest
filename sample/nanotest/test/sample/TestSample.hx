@@ -1,9 +1,9 @@
 package sample;
-import shohei909.nanotest.NanoTestRunner;
-import shohei909.nanotest.NanoTestCase;
+import nanotest.NanoTestRunner;
+import nanotest.NanoTestCase;
  
 class TestSample {   
-    static function main(){
+    static public function main(){
         var r = new NanoTestRunner();
         r.add(new TestSampleCase());
         r.run();
@@ -13,5 +13,5 @@ class TestSample {
 class TestSampleCase extends NanoTestCase {
     public function testBasic(){
         assertEquals( "A", "A" );
-    }   
+    }
 }

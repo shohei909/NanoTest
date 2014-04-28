@@ -1,0 +1,4 @@
+# nanotest.hxml
+
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('bin/test_result.txt', ['src', 'test'], "MUnit")

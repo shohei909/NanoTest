@@ -1,0 +1,10 @@
+version=2.1.0
+src=test
+bin=bin
+report=report
+hxml=munit.hxml
+classPaths=src
+resources=resources
+templates=null
+coveragePackages=null
+coverageIgnoredClasses=null

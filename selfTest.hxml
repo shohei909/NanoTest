@@ -1,46 +1,101 @@
---no-output
---macro selftest.SelfTest.main()
--cp lib
+#neko
+--next
+-neko bin/test.n
+-main selftest.SelfTest
+-cp src
 -cp test
+-debug
 
 --next
--swf bin/selfTest.swf
--main selftest.SelfTest
--cp lib
--cp test
+-cmd neko "bin/test.n" 1>bin/report/neko.txt
 
 --next
--neko bin/selfTest.n
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/neko.txt', ['test', 'src'], 'Neko')
+
+
+#js
+--next
+-js bin/test.js
 -main selftest.SelfTest
--cp lib
+-cp src
 -cp test
+-debug
 
 --next
--js bin/selfTest.js
--main selftest.SelfTest
--cp lib
--cp test
+-cmd node "bin/test.js" 1>bin/report/js.txt
 
 --next
--java bin/java
--main selftest.SelfTest
--cp lib
--cp test
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/js.txt', ['test', 'src'], 'JavaScript')
 
+
+#c-sharp
 --next
 -cs bin/cs
 -main selftest.SelfTest
--cp lib
+-cp src
 -cp test
+-debug
 
 --next
--php bin/php
--main selftest.SelfTest
--cp lib
--cp test
+-cmd ""bin/cs/bin/SelfTest-Debug"" 1>bin/report/cs.txt
 
+--next
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/cs.txt', ['test', 'src'], 'C#')
+
+
+#java 
+--next
+-java bin/java
+-main selftest.SelfTest
+-cp src
+-cp test
+-debug
+--next
+-cmd java -jar bin/java/SelfTest-Debug.jar 1>bin/report/java.txt
+
+--next
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/java.txt', ['test', 'src'], 'Java')
+
+
+#cpp
 --next
 -cpp bin/cpp
 -main selftest.SelfTest
--cp lib
+-cp src
 -cp test
+-debug
+
+--next
+-cmd ""bin/cpp/SelfTest-Debug"" 1>bin/report/cpp.txt
+
+--next
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/cpp.txt', ['test', 'src'], 'C++')
+
+
+#swf
+--next
+-swf bin/test.swf
+-main selftest.SelfTest
+-cp src
+-cp test
+-debug
+-D fdb
+
+--next
+-cmd swf_debug bin/test.swf bin/report/swf.txt
+
+--next
+-cp src
+-D result_exit_code
+--macro nanotest.NanoTestRunner.readResult('bin/report/swf.txt', ['test', 'src'], 'Flash')
+
