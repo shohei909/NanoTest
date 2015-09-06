@@ -8,13 +8,13 @@ import massive.munit.Assert;
 class FailureTest
 {
 	@Test
-	public function mainTest() 
+	public function failureTest()
 	{
-		Assert.areEqual( 5, 2 + 2 );
+        Assert.areEqual( 5, 2 + 2 );
 	}
-	
+
 	@Test
-	public function subTest() 
+	public function errorTest()
 	{
 		throw "error test";
 	}

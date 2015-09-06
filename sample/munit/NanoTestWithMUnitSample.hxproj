@@ -16,6 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="test" />
+    <class path="src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -29,6 +30,7 @@
   <!-- haxelib libraries -->
   <haxelib>
     <library name="nanotest" />
+    <library name="munit" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
@@ -43,9 +45,7 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>$(CompilerPath)\haxe.exe $(ProjectDir)\munit.hxml
-$(CompilerPath)\haxelib.exe run munit run 1&gt;$(ProjectDir)\bin\test_result.txt
-$(CompilerPath)\haxe.exe $(ProjectDir)\nanotest.hxml</preBuildCommand>
+  <preBuildCommand>$(CompilerPath)\haxe run.hxml</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->

@@ -1,0 +1,18 @@
+#　MUnit
+-cmd haxelib run munit test
+--next
+
+# NanoTest
+# Neko
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('report/test/simple/neko/output.txt', ['src', 'test'], "Neko")
+--next
+
+# Flash
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('report/test/simple/as3/output.txt', ['src', 'test'], "Flash")
+--next
+
+# JS
+-lib nanotest
+--macro nanotest.NanoTestRunner.readResult('report/test/simple/js/output.txt', ['src', 'test'], "JS")

@@ -1,9 +1,11 @@
 import massive.munit.client.PrintClient;
+import massive.munit.client.PrintClientBase;
 import massive.munit.client.RichPrintClient;
 import massive.munit.client.HTTPClient;
 import massive.munit.client.JUnitReportClient;
 import massive.munit.client.SummaryReportClient;
 import massive.munit.TestRunner;
+import mcover.coverage.CoverageReportClient;
 
 #if js
 import js.Lib;
@@ -30,10 +32,10 @@ class TestMain
 			var httpClient = new HTTPClient(new SummaryReportClient());
 		#end
 
-		var runner:TestRunner = new TestRunner(client); 
+		var runner:TestRunner = new TestRunner(client);
 		runner.addResultClient(httpClient);
-		//runner.addResultClient(new HTTPClient(new JUnitReportClient()));
-		
+		runner.addResultClient(new HTTPClient(new PrintClientBase()));
+
 		runner.completionHandler = completionHandler;
 		runner.run(suites);
 	}
