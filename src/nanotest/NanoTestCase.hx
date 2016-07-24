@@ -108,7 +108,7 @@ class NanoTestCase {
 
 	public function assertEquals<T>( expected: T , actual: T,  ?p : PosInfos ) {
 		return if ( Reflect.isEnumValue(expected) ){
-			if (!Type.enumEq(actual, expected)){
+			if (!Type.enumEq(cast actual, cast expected)){
 				fail( ASSERT_EQUALS_ERROR(expected, actual), p );
 			} else {
 				success( p );
@@ -124,7 +124,7 @@ class NanoTestCase {
 	
 	public function assertNotEquals<T>( notExpected: T , actual: T,  ?p : PosInfos ) {
 		return if ( Reflect.isEnumValue(notExpected) ){
-			if (Type.enumEq(actual, notExpected)){
+			if (Type.enumEq(cast actual, cast notExpected)){
 				fail( ASSERT_NOT_EQUALS_ERROR(notExpected, actual), p );
 			} else {
 				success( p );

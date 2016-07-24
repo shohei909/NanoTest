@@ -120,7 +120,7 @@ class SuccessTestCase extends NanoTestCase {
 	
 	public function testSuccess2() {
 		assertEquals( SUCCESS, TestMode.SUCCESS );
-		assertEquals( NODE( LEAF("hoge"), LEAF(1) ), NODE( LEAF("hoge"), LEAF(1.0) ) );
+		assertEquals( NODE( LEAF("hoge"), LEAF(1.0) ), NODE( LEAF("hoge"), LEAF(1.0) ) );
 		assertEquals( LEAF(this), LEAF(this) );
 		assertEquals( setupCount, tearDownCount + 1 );
 		assertEquals( globalSetupCount, 1 );
