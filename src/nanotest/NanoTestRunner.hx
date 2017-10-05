@@ -52,7 +52,7 @@ class NanoTestRunner {
 		Sys.println( if (label != null) '== $label Result ==' else '== Result ==' );
 		
 		var r = File.read(file);
-		var segs = ~/([\r][\n]|[\n]|[\r])/g.split(r.readAll().toString());
+		var segs = ~/\r\n|\n|\r/g.split(r.readAll().toString());
 		sourceDir.push(null);
 		
 		var fail = false;
@@ -254,7 +254,7 @@ class NanoTestRunner {
 	static function posInfosToPosition( posInfos:PosInfos ) {
 		#if macro
 		var file = File.read( posInfos.fileName ).readAll().toString();
-		var ereg = ~/(\r\n|\r|\n)/;
+		var ereg = ~/\r\n|\r|\n/;
 		
 		var min = 0;
 		for ( i in 0...posInfos.lineNumber - 1 ) {
