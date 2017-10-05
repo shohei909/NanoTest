@@ -4,6 +4,7 @@
 -main selftest.SelfTest
 -cp src
 -cp test
+-lib hx3compat:1.0.0
 -debug
 
 --next
@@ -11,6 +12,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/neko.txt', ['test', 'src'], 'Neko')
 
@@ -20,6 +22,7 @@
 -js bin/test.js
 -main selftest.SelfTest
 -cp src
+-lib hx3compat:1.0.0
 -cp test
 -debug
 
@@ -28,6 +31,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/js.txt', ['test', 'src'], 'JavaScript')
 
@@ -37,6 +41,7 @@
 -cs bin/cs
 -main selftest.SelfTest
 -cp src
+-lib hx3compat:1.0.0
 -cp test
 -debug
 
@@ -45,6 +50,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/cs.txt', ['test', 'src'], 'C#')
 
@@ -54,6 +60,7 @@
 -java bin/java
 -main selftest.SelfTest
 -cp src
+-lib hx3compat:1.0.0
 -cp test
 -debug
 --next
@@ -61,6 +68,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/java.txt', ['test', 'src'], 'Java')
 
@@ -70,6 +78,7 @@
 -cpp bin/cpp
 -main selftest.SelfTest
 -cp src
+-lib hx3compat:1.0.0
 -cp test
 -debug
 
@@ -78,6 +87,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/cpp.txt', ['test', 'src'], 'C++')
 
@@ -87,6 +97,7 @@
 -swf bin/test.swf
 -main selftest.SelfTest
 -cp src
+-lib hx3compat:1.0.0
 -cp test
 -debug
 -D fdb
@@ -96,6 +107,7 @@
 
 --next
 -cp src
+-lib hx3compat:1.0.0
 -D result_exit_code
 --macro nanotest.NanoTestRunner.readResult('bin/report/swf.txt', ['test', 'src'], 'Flash')
 
