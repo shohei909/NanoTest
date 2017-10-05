@@ -1,14 +1,14 @@
 NanoTest is a light weight test library. Its interface is similar to the [haxe.unit](http://haxe.org/doc/cross/unit) testing framework, but it can output test failures as compiler warnings or errors.
 
-#NanoTest with FlashDevelop
+# NanoTest with FlashDevelop
 ![NanoTest](sample/nanotest/resource/NanoTestOnFlashDevelop.png)
 
-#NanoTest with Intellij IDEA
+# NanoTest with Intellij IDEA
 ![NanoTest](sample/nanotest/resource/NanoTestOnIntelliJIdea.png)
 
 NanoTest can display test failures as compiler warnings on the Result Panel of [FlashDevelop](http://www.flashdevelop.org/) and other IDEs.
 
-#Installing NanoTest
+# Installing NanoTest
 
 You can install NanoTest from haxelib.
 
@@ -16,7 +16,7 @@ You can install NanoTest from haxelib.
 haxelib install nanotest
 ```
 
-#Running test as macro
+# Running test as macro
 
 Create test classes and save them as sample/TestSample.hx.
 
@@ -64,14 +64,14 @@ Compile it on commandline
 haxe compile.hxml
 ```
 
-#Output test failures as compilation errors
+# Output test failures as compilation errors
 
 Use NanoTestRunner.error as failure output function.
 ```hx
 var r = new NanoTestRunner(NanoTestRunner.error);
 ```
 
-#Improvements from haxe.unit
+# Improvements from haxe.unit
 
 NanoTestCase has some addtional functions,
 
@@ -118,6 +118,6 @@ Test failed : expected 1 but was 2 [0]
 Test failed : expected 5 but was 3 [3]
 ```
 
-#License
+# License
 
 The MIT License
