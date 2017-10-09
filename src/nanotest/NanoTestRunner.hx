@@ -73,12 +73,15 @@ class NanoTestRunner {
 					for (dir in sourceDir) {
 						var file = p;
 						if (dir != null) file = '$dir/$file';
-						try {
-							warning(msg, { fileName : file, lineNumber : line, className : null, methodName : null } );
-							fail = true;
-							printed = true;
-							break;
-						} catch (d :Dynamic) {
+						if (FileSystem.exists(file))
+						{
+							try {
+								warning(msg, { fileName : file, lineNumber : line, className : null, methodName : null } );
+								fail = true;
+								printed = true;
+								break;
+							} catch (d :Dynamic) {
+							}
 						}
 					}
 					
