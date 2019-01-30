@@ -36,7 +36,7 @@ class NanoTestRunner {
 			}
 		}, 
 		{ //MUnit
-			ereg 	: ~/^\s*[A-Z]+[:] massive\.munit\.[a-zA-Z]*Exception[:] (.+) at ([^*?"<>|]+) [(]([1-9][0-9]*)[)]/, 
+			ereg 	: ~/^\s*[A-Z]+[:] massive\.munit\.[a-zA-Z.]*Exception[:] (.*) at ([^*?"<>|]+) [(]([1-9][0-9]*)[)]/, 
 			pos 	: [2, 3, 1],
 			getFile : function (str:String, ereg) {
 				if (str.substr(str.length - 3) == ".hx") return str;
