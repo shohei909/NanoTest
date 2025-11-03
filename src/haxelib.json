@@ -4,10 +4,10 @@
   "license": "MIT",
   "tags": ["cross", "test"],
   "description": "NanoTest is a light weight test library. Its interface is similar to the haxe.unit testing framework, but it can run as pre-compilation macro and can output test failures as compiler warnings or errors.",
-  "version": "1.1.2",
-  "releasenote": "improve munit support",
+  "version": "1.1.3",
+  "releasenote": "fix for haxe 5.0.0-preview.1",
   "contributors": ["shohei909"],
   "dependencies": {
-    "hx3compat": "1.0.0"
+    "hx3compat": "1.1.0"
   }
 }
